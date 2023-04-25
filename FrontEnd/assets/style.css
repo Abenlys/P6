@@ -185,4 +185,87 @@ footer nav ul {
 	justify-content: flex-end;
 	margin: 2em
 }
+/* CSS des boutons pour les filtres */
+button {
+	background-color: white;
+	border: 1px solid #1D6154;
+	text-align: center;
+	border-radius: 60px;
+	font-size: 16px;
+	color: #1D6154;
+	padding: 9px 20px 9px 20px;
+	font-weight: 700;
+	font-family: 'Syne';
+}
 
+.flexButton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: 51px;
+	margin-top: 51px;
+}
+
+.button_selected {
+	color: white;
+	background-color: #1D6154;
+}
+/*  fin CSS des boutons pour les filtres */
+
+/* Ajout règles pour le lien du login */
+header a {
+	text-decoration: none;
+	color: black;
+}
+header a:hover {
+	color: #B1663C;
+}
+/* Fin Ajout règles pour le lien du login */
+
+/* CSS page Log In */
+
+.a_login {
+	font-weight: 600;
+}
+
+.footer_login {
+	margin-top: 150px;
+}
+
+form p {
+	text-align: center;
+	text-decoration: underline;
+	margin-bottom: 10px;
+}
+
+/* fin CSS page Log In */
+
+/* CSS du mode édition */
+
+.bandeau {
+	height: 59px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: black;
+	color: white;
+	gap: 15px;
+}
+
+.bulle {
+	background-color: white;
+	color: black;
+	border-radius: 60px;
+	height: 38px;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+/* Fin CSS mode Edition */
