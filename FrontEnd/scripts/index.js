@@ -103,6 +103,80 @@ function miseEnFormeButtonEtFilterGallery() {
     }
 }
 
+// Après la connexion reussie via le login, on récupère le userId et token qui a été stocké dans localstorage
+function modeEdition() {
+    const dataString = localStorage.getItem("data")
+    if (dataString) {
+        const data = JSON.parse(dataString)
+        const userId = data.userId
+        console.log(userId)
+        const token = data.token
+        console.log(token)
+        console.log(dataString)
+        // Faire toute les étapes du mode édition
+        if (token) {
+        // 1. bandeau noir en haut de la page
+            const BodyDynamique = document.querySelector("body")
+            const divEdition = document.createElement("div")
+            divEdition.classList.add("flexcenter", "bandeau", "gap")
+            const header = document.querySelector("header")
+            BodyDynamique.insertBefore(divEdition, header)
+            const iconeHeader = document.createElement("i")
+            iconeHeader.classList.add("far",  "fa-pen-to-square")
+            const paragrapheHeader = document.createElement("p")
+            paragrapheHeader.innerText = "Mode Edition"
+            const divPublier = document.createElement("div")
+            divPublier.classList.add("flexcenter", "bulle")
+            const pDansBulleBlanche = document.createElement("p")
+            pDansBulleBlanche.innerText = "Publier les changements"
+            divEdition.appendChild(iconeHeader)
+            divEdition.appendChild(paragrapheHeader)
+            divEdition.appendChild(divPublier)
+            divPublier.appendChild(pDansBulleBlanche)
+            // 2. ajouter l'icone + paragraphe modifier en dessous de l'image
+            const figureIntroduction = document.querySelector("figure")
+            const figCaptionImg = document.createElement('figcaption')
+            figCaptionImg.classList.add("flex_image")
+            const iconeImg = document.createElement("i")
+            iconeImg.classList.add("far", "fa-pen-to-square")
+            const pImg = document.createElement("p")
+            pImg.innerText = "Modifier"
+            figureIntroduction.appendChild(figCaptionImg)
+            figCaptionImg.appendChild(iconeImg)
+            figCaptionImg.appendChild(pImg)
+            // 3. ajouter l'icone + paragraphe modifier à coté de projet
+            const sectionPortFolio = document.querySelector("#portfolio")
+            const mesProjets = sectionPortFolio.querySelector("h2")
+            const divFilter = document.querySelector(".flexButton")
+            const divTitrePortfolio = document.createElement("div")
+            divTitrePortfolio.classList.add("flexcenter", "gap_titrePortfolio")
+            const lienIconTexte = document.createElement("a")
+            lienIconTexte.setAttribute('href', '#modal1')
+            lienIconTexte.classList.add("flexcenter", "gap")
+            const iconMesProjets = document.createElement("i")
+            iconMesProjets.classList.add("far",  "fa-pen-to-square")
+            const pMesProjets = document.createElement("p")
+            pMesProjets.innerText = "Modifier"
+            sectionPortFolio.insertBefore(divTitrePortfolio, divFilter)
+            divTitrePortfolio.appendChild(mesProjets)
+            divTitrePortfolio.appendChild(lienIconTexte)
+            lienIconTexte.appendChild(iconMesProjets)
+            lienIconTexte.appendChild(pMesProjets)
+            // 4. display none de la divFiltre
+            divFilter.style.display = "none"
+            // 5. le login doit passer en logout + a l'action du clic, on sort du mode édition
+            const aLog = document.querySelector("#log")
+            aLog.innerText = "logout"
+            aLog.addEventListener('click', () => {
+                localStorage.removeItem('data')
+                window.location.reload()
+            })
+        }
+    }
+}
+
+
+
 // fonction permettant de passer toute les fonctions à cause de l'asynchrone
 async function init() {
     const data = await communiquer()
@@ -111,56 +185,13 @@ async function init() {
     const dataId = await getCategoryId()
     listeButtonDynamique(dataId)
     miseEnFormeButtonEtFilterGallery()
-    const divFiltre = document.querySelector(".flexButton")
-    console.log(divFiltre)
+    modeEdition()
 
 }
 init()
 
-// const lesFiltres = document.querySelector("flexButton")
-// console.log(lesFiltres)
 
 
-
-// Après la connexion reussie via le login, on récupère le userId et token qui a été stocker dans localstorage
-const dataString = localStorage.getItem("data")
-if (dataString) {
-    const data = JSON.parse(dataString)
-    const userId = data.userId
-    console.log(userId)
-    const token = data.token
-    console.log(token)
-    console.log(dataString)
-    // Faire toute les étapes du mode édition
-    if ( token ) {
-    // 1. bandeau noir en haut de la page
-        const BodyDynamique = document.querySelector("body")
-        const divEdition = document.createElement("div")
-        divEdition.classList.add("bandeau")
-        const header = document.querySelector("header")
-        BodyDynamique.insertBefore(divEdition, header)
-        const iconeHeader = document.createElement("i")
-        iconeHeader.classList.add("far",  "fa-pen-to-square")
-        const paragrapheHeader = document.createElement("p")
-        paragrapheHeader.innerText = "Mode Edition"
-        const divPublier = document.createElement("div")
-        divPublier.classList.add("bulle")
-        const pDansBulleBlanche = document.createElement("p")
-        pDansBulleBlanche.innerText = "Publier les changements"
-        divEdition.appendChild(iconeHeader)
-        divEdition.appendChild(paragrapheHeader)
-        divEdition.appendChild(divPublier)
-        divPublier.appendChild(pDansBulleBlanche)
-        // 2. ajouter l'icone + paragraphe modifier en dessous de l'image
-        // 3. ajouter l'icone + paragraphe modfier à coté de projet
-        // 4. suppression de la divFiltre
-        const divFiltre = document.querySelector(".flexButton")
-        console.log(divFiltre)
-
-
-
-    }
-}
 
 
 
