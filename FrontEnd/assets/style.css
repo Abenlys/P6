@@ -248,6 +248,7 @@ form p {
 	transform: scale(1.1);
 }
 
+
 /* fin CSS page Log In */
 
 /* CSS du mode édition */
@@ -451,6 +452,13 @@ form p {
 	color: white;
 	padding: 3px;
 	cursor: pointer;
+	transition: transform 0.2 ease;
 }
+
+.bg-icon:hover {
+	background-color: red;
+	transform: scale(1.1);
+}
+
 
 /* fin CSS modal */

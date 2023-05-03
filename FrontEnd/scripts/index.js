@@ -37,6 +37,7 @@ function recupImageTitle(data, container) {
             divTrash.classList.add('bg-icon')
             const iconTrash = document.createElement('i')
             iconTrash.classList.add('fa-solid', 'fa-trash-can')
+            iconTrash.id = article.id
             if ( i === 0) {
                 divModalIcon.appendChild(divEnlarge)
                 divEnlarge.appendChild(iconEnlarge)

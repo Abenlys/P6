@@ -1,25 +1,26 @@
 let trashIndex
-
+// Fonction delete pour supprimer un objet de l'API
 async function deleteObjects(trashIndex) {
     try {
         const data = JSON.parse(localStorage.getItem('data'))
         console.log(data)
-        const token = data ? JSON.stringify(data.token) : undefined
-        console.log(data.token)
-        console.log(JSON.parse(token))
+        let token
+        if (data) {
+            token = data.token
+        }
         console.log(token)
-        debugger
         if (!token) {
             throw new Error('Aucun token trouvé dans le localStorage')
         }
         const response = await fetch(`${baseUrl}works/${trashIndex}`, {
             method: 'DELETE',
             headers: {
-                'Authorization' : 'Bearer' + token,
-                'content-Type' : 'application/json;charset=utf-8'
+                'content-Type' : 'application/json;charset=utf-8',
+                'Authorization' : `Bearer ${token}`
                 
             }
         })
+        console.log(trashIndex)
         console.log(response)
         console.log(`${baseUrl}works/${trashIndex}`)
         console.log(`Bearer ${token}`)
@@ -31,19 +32,24 @@ async function deleteObjects(trashIndex) {
     } catch (error) {
         console.error(`une erreur est survenue :`, error.message)
     }
+    document.querySelector('.modal-gallery').innerHTML = ""
+    const data = await communiquer()
+    recupImageTitle(data, ".modal-gallery")
+    suppressionHtmlGallery()
+    recupImageTitle(data, ".gallery")
 }
 
 
 // Fonction pour créer un array des icones trash et en récupérer l'index
 function getIndexFromTrash() {
     const trashs = document.querySelectorAll('.fa-trash-can')
-    console.log(trashs.length)
     for (let i = 0; i < trashs.length ; i++) {
         trashs[i].addEventListener('click', function(event) {
             // Récupération de l'index
-            trashIndex = Array.from(trashs).indexOf(event.target) + 1
-            console.log(trashIndex)
+            const trashIndex = event.target.id
             deleteObjects(trashIndex)
+            console.log('aze')
+            console.log(event.target.id)
         })
     } 
 }
@@ -72,7 +78,6 @@ function manageModal() {
         const data = await communiquer()
         recupImageTitle(data, ".modal-gallery")
         getIndexFromTrash()
-        
     }
 
     const closeModal = function (e) {
