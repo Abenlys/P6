@@ -1,17 +1,4 @@
-// Fonction pour créer un array des icones trash et en récupérer l'index
 let trashIndex
-function getIndexFromTrash() {
-    const trashs = document.querySelectorAll('.fa-trash-can')
-    console.log(trashs.length)
-    for (let i = 0; i < trashs.length ; i++) {
-        trashs[i].addEventListener('click', function(event) {
-            // Récupération de l'index
-            trashIndex = Array.from(trashs).indexOf(event.target) + 1
-            console.log(trashIndex)
-            return trashIndex
-        })
-    } 
-}
 
 async function deleteObjects(trashIndex) {
     try {
@@ -42,6 +29,23 @@ async function deleteObjects(trashIndex) {
     }
 }
 
+
+// Fonction pour créer un array des icones trash et en récupérer l'index
+function getIndexFromTrash() {
+    const trashs = document.querySelectorAll('.fa-trash-can')
+    console.log(trashs.length)
+    for (let i = 0; i < trashs.length ; i++) {
+        trashs[i].addEventListener('click', function(event) {
+            // Récupération de l'index
+            trashIndex = Array.from(trashs).indexOf(event.target) + 1
+            console.log(trashIndex)
+            deleteObjects(trashIndex)
+        })
+    } 
+}
+
+
+
 function manageModal() {
     let modal = null
     const focusableSelector = 'button, a, input, textarea'
@@ -63,7 +67,7 @@ function manageModal() {
         document.querySelector('.modal-gallery').innerHTML = ""
         const data = await communiquer()
         recupImageTitle(data, ".modal-gallery")
-        deleteObjects(trashIndex)
+        getIndexFromTrash()
         
     }
 
