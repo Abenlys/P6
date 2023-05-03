@@ -6,19 +6,23 @@ async function deleteObjects(trashIndex) {
         console.log(data)
         const token = data ? JSON.stringify(data.token) : undefined
         console.log(data.token)
+        console.log(JSON.parse(token))
         console.log(token)
+        debugger
         if (!token) {
             throw new Error('Aucun token trouvé dans le localStorage')
         }
         const response = await fetch(`${baseUrl}works/${trashIndex}`, {
             method: 'DELETE',
             headers: {
-                'Authorization' : `Bearer ${token}`,
+                'Authorization' : 'Bearer' + token,
                 'content-Type' : 'application/json;charset=utf-8'
                 
             }
         })
+        console.log(response)
         console.log(`${baseUrl}works/${trashIndex}`)
+        console.log(`Bearer ${token}`)
         if (!response.ok) {
             throw new Error(`la suppression de l'objet a échoué`)
         }
