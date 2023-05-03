@@ -16,19 +16,43 @@ function suppressionHtmlGallery() {
 
 
 // Récupération des images + title qu'il faudra mettre dans une balise figcaption à l'interieur des balises figures
-function recupImageTitle(data) {
+function recupImageTitle(data, container) {
     for (i = 0; i < data.length; i++) {
         const article = data[i]
         // Récupération du conteneur ou l'on va générer les figures
-        const containerGallery = document.querySelector(".gallery")
+        const containerGallery = document.querySelector(container)
         // Création des figures à l'intérieur de gallery
         const figureDynamique = document.createElement("figure")
+        figureDynamique.style.position = 'relative'
+        // creation des icones pour la modale
+        if (container === '.modal-gallery') {
+            const divModalIcon = document.createElement('div')
+            divModalIcon.classList.add('modal-gallery-icon')
+            figureDynamique.appendChild(divModalIcon)
+            const divEnlarge = document.createElement('div')
+            divEnlarge.classList.add('bg-icon')
+            const iconEnlarge = document.createElement('i')
+            iconEnlarge.classList.add('fa-solid', 'fa-arrows-up-down-left-right')
+            const divTrash = document.createElement('div')
+            divTrash.classList.add('bg-icon')
+            const iconTrash = document.createElement('i')
+            iconTrash.classList.add('fa-solid', 'fa-trash-can')
+            if ( i === 0) {
+                divModalIcon.appendChild(divEnlarge)
+                divEnlarge.appendChild(iconEnlarge)
+                divModalIcon.appendChild(divTrash)
+                divTrash.appendChild(iconTrash)
+            } else {
+                divModalIcon.appendChild(divTrash)
+                divTrash.appendChild(iconTrash)
+            }
+        }
         // Création des img dans les figures
         const figureImage = document.createElement("img")
         figureImage.src = article.imageUrl
         // Création des figcaption dans les figures
         const figureCaption = document.createElement("figcaption")
-        figureCaption.innerText = article.title
+        figureCaption.innerText = (container === '.gallery' ? article.title : 'Éditer')
         // On rattache les balises figures à la gallery
         containerGallery.appendChild(figureDynamique)
         figureDynamique.appendChild(figureImage)
@@ -61,6 +85,7 @@ function listeButtonDynamique(dataId) {
     sectionPortFolio.insertBefore(divFiltre, divGallery)
     for (let i = -1; i < dataId.length; i++) {
         const buttonElement = document.createElement("button")
+        buttonElement.classList.add('b_filter')
         if (i === -1) {
             buttonElement.innerText = "Tous"
         } else {
@@ -73,7 +98,7 @@ function listeButtonDynamique(dataId) {
 
 // fonction qui fait la mise en forme des boutons et applique le filter sur les gallery
 function miseEnFormeButtonEtFilterGallery() {
-    const buttons = document.querySelectorAll("button");
+    const buttons = document.querySelectorAll(".b_filter");
   
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener("click", function(event) {
@@ -97,7 +122,7 @@ function miseEnFormeButtonEtFilterGallery() {
                 } else {
                     filteredData = data.filter(work => work.categoryId === (buttonIndex))
                 }
-                recupImageTitle(filteredData)
+                recupImageTitle(filteredData, ".gallery")
             })
       })
     }
@@ -152,7 +177,7 @@ function modeEdition() {
             divTitrePortfolio.classList.add("flexcenter", "gap_titrePortfolio")
             const lienIconTexte = document.createElement("a")
             lienIconTexte.setAttribute('href', '#modal1')
-            lienIconTexte.classList.add("flexcenter", "gap")
+            lienIconTexte.classList.add("flexcenter", "gap", "js-modal")
             const iconMesProjets = document.createElement("i")
             iconMesProjets.classList.add("far",  "fa-pen-to-square")
             const pMesProjets = document.createElement("p")
@@ -171,6 +196,20 @@ function modeEdition() {
                 localStorage.removeItem('data')
                 window.location.reload()
             })
+            // 6. ajouter l'icone + paragraphe devant article description
+            const articleDesignerEspace = document.querySelector('article')
+            const articleH2 = articleDesignerEspace.querySelector('h2')
+            const divArticleDesigner = document.createElement('div')
+            divArticleDesigner.classList.add('gap')
+            divArticleDesigner.style.display = "flex"
+            divArticleDesigner.style.marginBottom = '15px'
+            const iconArticleDesigner = document.createElement('i')
+            iconArticleDesigner.classList.add('far', 'fa-pen-to-square')
+            const pArticleDesigner = document.createElement('p')
+            pArticleDesigner.innerText = 'Modifier'
+            articleDesignerEspace.insertBefore(divArticleDesigner, articleH2)
+            divArticleDesigner.appendChild(iconArticleDesigner)
+            divArticleDesigner.appendChild(pArticleDesigner)
         }
     }
 }
@@ -181,24 +220,14 @@ function modeEdition() {
 async function init() {
     const data = await communiquer()
     suppressionHtmlGallery()
-    recupImageTitle(data)
+    recupImageTitle(data, ".gallery")
     const dataId = await getCategoryId()
     listeButtonDynamique(dataId)
     miseEnFormeButtonEtFilterGallery()
     modeEdition()
-
+    manageModal()
+    
 }
 init()
-
-
-
-
-
-
-
-
-
-
-
 
 

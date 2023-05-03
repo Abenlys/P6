@@ -36,8 +36,13 @@ seConnecter.addEventListener('click', async (event) => {
         let errorElement = document.querySelector('#erreur_login')
         if (!errorElement) {
             errorElement = document.createElement("p")
+            errorElement.style.color = 'red'
+            errorElement.style.fontSize = '20px'
+            errorElement.style.marginTop = '30px'
             errorElement.id = "erreur_login"
-            document.querySelector("#contact").appendChild(errorElement)
+            document.querySelector(".form_login").insertBefore(errorElement, seConnecter)
+            
+            
         }
         errorElement.innerText = "la combinaison de l'email et mot de passe est fausse"
     }
