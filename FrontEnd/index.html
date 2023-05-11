@@ -36,7 +36,7 @@
 		</article>
 	</section>
 	<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-labelledby="titlemodal" style="display: none">
-		<div class="modal-wrapper js-modal-stop">
+		<div class="modal-wrapper js-modal-stop modal-premier">
 			<button class="js-modal-close"><i class="fa-solid fa-xmark"></i></button>
 			<h1 id="titlemodal">Galerie Photos</h1>
 			<div class="modal-gallery">
@@ -47,6 +47,35 @@
 				<button class="add-picture"><p>Ajouter une Photo</p></button>
 				<p class="sup-gal">Supprimer la galerie</p>
 			</div>
+		</div>
+		<div id="modal2" class="modal-wrapper js-modal-stop" style="display: none">
+			<div class="modal2-icon">
+				<button class="js-backButton"><i class="fa-solid fa-arrow-left"></i></button>
+				<button class="js-backButton"><i class="fa-solid fa-xmark"></i></button>
+			</div>
+			<h1 class="flexcenter">Ajout Photo</h1>
+			<form class="addPictures">
+				<div class="container-add-pictures flexcenter column">
+					<img id="preview" alt="Image preview">
+					<div class="gestion-display">
+						<i class="fa-regular fa-image"></i>
+						<label class="container-add-pictures-button" for="file-upload">+ Ajouter photo</label>
+						<input type="file" id="file-upload" name="file-upload" onchange="getPicture()" accept="image/png, image/jpg">
+						<p class="container-add-pictures-p">jpg, png : 4mo max</p>
+					</div>
+				</div>
+				<label for="titre">Titre</label>
+				<input type="text" name="titre" id="titre">
+				<label for="category">Catégorie</label>
+				<select name="category-select" id="category">
+					<option value="">-- Choisissez une catégorie --</option>
+					<option value="Objets">Objets</option>
+					<option value="Appartements">Appartements</option>
+					<option value="Hotels & restaurants">Hotels & restaurants</option>
+				</select>
+				<div class="separation2"></div>
+				<button class="add-picture-valid"><p>Valider</p></button>
+			</form>
 		</div>
 	</aside>
 	<section id="portfolio">

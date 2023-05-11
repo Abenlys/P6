@@ -233,7 +233,8 @@ header a:hover {
 	margin-top: 150px;
 }
 
-form p {
+.form_login p {
+	margin: auto;
 	text-align: center;
 	text-decoration: underline;
 	margin-bottom: 10px;
@@ -269,6 +270,12 @@ form p {
 	padding-bottom: 2px;
 	padding-left: 10px;
 	padding-right: 10px;
+	transition: transform 0.2 ease;
+	cursor: pointer;
+}
+
+.bulle:hover {
+	transform: scale(1.1);
 }
 
 .flexcenter {
@@ -276,6 +283,11 @@ form p {
 	justify-content: center;
 	align-items: center;
 }
+
+.column {
+	flex-direction: column;
+}
+
 
 .gap {
 	gap: 15px;
@@ -312,6 +324,7 @@ form p {
 
 .modal {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	position: fixed;
@@ -413,6 +426,12 @@ form p {
     border: none;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	padding: 10px 15px;
+	cursor: pointer;
+	transition: transform 0.2 ease;
+}
+
+.add-picture:hover {
+	transform: scale(1.1);
 }
 
 .sup-gal {
@@ -462,3 +481,147 @@ form p {
 
 
 /* fin CSS modal */
+
+/* CSS modal2 */
+
+
+
+.modal2-icon {
+	display: flex;
+	justify-content: space-between;
+}
+
+.fa-arrow-left {
+	font-size: 1.5rem;
+}
+
+.container-add-pictures {
+	width: 420px;
+	height: 170px;
+	background-color: #E8F1F6;
+	margin: 3em auto;
+
+}
+
+.fa-image {
+	font-size: 4rem;
+	color: #B9C5CC;
+	margin-bottom: 15px;
+}
+
+.js-backButton {
+	cursor: pointer;
+	border: none;
+	background-color: white;
+	transition: transform 0.2 ease;
+}
+
+.js-backButton:hover {
+	transform: scale(1.1);
+}
+
+.container-add-pictures-button {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: #306685;
+	background-color: #CBD6DC;
+	margin : 0 auto 10px ;
+	width: 173px;
+	border-radius: 60px;
+    font-size: 1.2em;
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	padding: 10px 15px;
+	cursor: pointer;
+	transition: transform 0.2 ease;
+}
+
+.container-add-pictures-button:hover {
+	transform: scale(1.1);
+}
+
+.container-add-pictures-p {
+	text-decoration: none;
+}
+
+#modal2 form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+	width: 420px;
+	margin: auto;
+}
+
+#modal2 input, select {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-top: 10px;
+	margin-bottom: 21px;
+	padding: 0 10px;
+}
+
+
+.separation2 {
+	border-top: 1px solid rgba(179, 179, 179, 1);
+	width: 420px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 20px;
+}
+
+.add-picture-valid {
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	background-color: #A7A7A7;
+	margin : 2em auto ;
+	width: 237px;
+	border-radius: 60px;
+    font-size: 1.2em;
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	padding: 10px 15px;
+	cursor: pointer;
+	transition: transform 0.2 ease;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+}
+
+.add-picture-valid p {
+	text-decoration: none;
+	text-align: center;
+}
+
+.add-picture-valid:hover {
+	transform: scale(1.1);
+}
+
+#file-upload {
+	display: none;
+}
+
+#preview {
+	display: none;
+	width: 130px;
+	height: 100%;
+}
+
+.gestion-display {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+}
+
+.add-bg-green {
+	background-color: #1D6154;
+}
+
+
+
+/* fin CSS modal2 */
