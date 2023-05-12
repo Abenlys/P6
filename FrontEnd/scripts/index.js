@@ -227,11 +227,11 @@ async function init() {
     miseEnFormeButtonEtFilterGallery()
     modeEdition()
     manageModal()
-    // rattacher la fonction sendNewWork à Publier les changements
-    const publish = document.querySelector('.bulle')
-    publish.addEventListener('click', function () {
-        sendNewWork(formData)
-      })
+    // // rattacher la fonction sendNewWork à Publier les changements
+    // const publish = document.querySelector('.bulle')
+    // publish.addEventListener('click', function () {
+    //     sendNewWork(formData)
+    //   })
     
     
 }

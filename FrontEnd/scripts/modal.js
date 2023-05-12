@@ -73,6 +73,7 @@ function getPicture() {
             } else {
                 let fileReader = new FileReader()
                 fileReader.onload = function (event) {
+                    console.log(event.target.result)
                     imagePreview.setAttribute('src', event.target.result)
                     if (imagePreview.getAttribute('src') !== null) {
                     imagePreview.style.display = "block"
@@ -131,16 +132,27 @@ function fieldRegularity() {
 
 // creation de l'objet formData
 function createObject() {
-    imageForPost = inputValueImg.value
-    titleForPost = titre.value
-    categoryForPost = category.value
-    const newObject = {'image': imageForPost, 'title': titleForPost, 'category': categoryForPost}
+    const fileForPost = inputValueImg.files[0]
+    const titleForPost = titre.value
+    const categoryForPost = category.value
+    const categoryValues = {
+        "Objets": '1',
+        "Appartements": '2',
+        "Hotels & restaurants": '3'
+    }
+    const categoryValue = categoryValues[categoryForPost]
     const formData = new FormData()
-    formData.append('id', 0)
-    formData.append('title', newObject.title)
-    formData.append('image', newObject.image)
-    formData.append('category', newObject.category)
-    formData.append('userId', 0)
+    formData.append('title', titleForPost)
+    formData.append('imageUrl', fileForPost, 'image.png')
+    formData.append('categoryId', categoryValue)
+    console.log(formData.get('title'))
+    console.log(formData.get('imageUrl'))
+    console.log(formData.get('categoryId'))
+    const obj = Object.fromEntries(formData.entries())
+    formData.forEach((key, val) => {
+        console.log(`[${key}]: ${val}`)
+    })
+    console.log(formData)
     return formData
 }
 
@@ -149,12 +161,18 @@ validPicture.addEventListener('click', function (e) {
     e.preventDefault()
     if (fieldRegularity() === true ) {
         const formData = createObject()
-        console.log(formData)
+        console.log(inputValueImg.files[0])
+        console.log(titre.value)
+        console.log(category.value)
+        const postwork =  {'image' : inputValueImg.getAttribute('src'), 'title' : titre.value, 'category': '1'}
+        console.log(inputValueImg.getAttribute('src'))
+        sendNewWork(postwork)
     }
 })
 
 //requete post de l'array works
 async function sendNewWork(formData) {
+    console.log(formData)
     try {
         const data = JSON.parse(localStorage.getItem('data'))
         console.log(data)
@@ -169,11 +187,11 @@ async function sendNewWork(formData) {
         const response = await fetch(`${baseUrl}works`, {
             method: 'POST',
             headers: {
-                'content-Type' : 'multipart/form-data',
+                'content-Type' : 'application/json;charset=utf-8',
                 'accept' : `application/json`,
                 'Authorization': `Bearer ${token}` 
             },
-            body: formData
+            body: JSON.stringify(formData)
         })
         if (!response.ok) {
             throw new Error(`la création de l'objet a échoué`)
@@ -187,7 +205,6 @@ async function sendNewWork(formData) {
     recupImageTitle(data, ".modal-gallery")
     suppressionHtmlGallery()
     recupImageTitle(data, ".gallery")
-    // works = []
 }
 
 
@@ -301,8 +318,5 @@ function manageModal() {
     })
     
 }
-
-
-
 
 
