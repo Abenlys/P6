@@ -26,6 +26,7 @@ function recupImageTitle(data, container) {
         figureDynamique.style.position = 'relative'
         // creation des icones pour la modale
         if (container === '.modal-gallery') {
+            console.log('creationgallerymodal')
             const divModalIcon = document.createElement('div')
             divModalIcon.classList.add('modal-gallery-icon')
             figureDynamique.appendChild(divModalIcon)
