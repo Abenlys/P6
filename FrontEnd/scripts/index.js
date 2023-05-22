@@ -1,5 +1,4 @@
 
-// Etape 1.1 gallery à jour avec Backend
 
 
 // fetch pour récupérer les données de l'API
@@ -26,7 +25,6 @@ function recupImageTitle(data, container) {
         figureDynamique.style.position = 'relative'
         // creation des icones pour la modale
         if (container === '.modal-gallery') {
-            console.log('creationgallerymodal')
             const divModalIcon = document.createElement('div')
             divModalIcon.classList.add('modal-gallery-icon')
             figureDynamique.appendChild(divModalIcon)
@@ -62,10 +60,6 @@ function recupImageTitle(data, container) {
     }
 }
 
-// fin Etape 1.1, les fonctions sont passées dans la fonction init
-
-
-// Etape 1.2 création du filtre, le but récupérer les catégories du backend et en faire une liste dynamique permettant de faire un filtre sur les projets
 
 // Récupération des catégories avec fetch
 async function getCategoryId() {
@@ -82,7 +76,7 @@ function listeButtonDynamique(dataId) {
     // Création de la div accueillant les filtres
     const divFiltre = document.createElement("div")
     divFiltre.classList.add("flexButton")
-    // Insérer la divFiltre entre h2 et div.gallery soit avant div.gallery, pas d'insertAfter, normal, par défaut créé l'élément à la fin
+    // Insérer la divFiltre entre h2 et div.gallery soit avant div.gallery
     const divGallery = sectionPortFolio.querySelector("div")
     sectionPortFolio.insertBefore(divFiltre, divGallery)
     for (let i = -1; i < dataId.length; i++) {
@@ -111,11 +105,9 @@ function miseEnFormeButtonEtFilterGallery() {
             });
             // récupération de l'index sur le bouton que l'on clique de l'array buttonIndex
             const buttonIndex = Array.from(buttons).indexOf(event.target)
-            // buttons[buttonIndex].classList.toggle('button_selected')
             if (!buttons[buttonIndex].classList.contains('button_selected')) {
                 buttons[buttonIndex].classList.add('button_selected');
             }
-            console.log(buttonIndex)
             suppressionHtmlGallery()
             communiquer().then(data => {
                 let filteredData
@@ -136,10 +128,7 @@ function modeEdition() {
     if (dataString) {
         const data = JSON.parse(dataString)
         const userId = data.userId
-        console.log(userId)
         const token = data.token
-        console.log(token)
-        console.log(dataString)
         // Faire toute les étapes du mode édition
         if (token) {
         // 1. bandeau noir en haut de la page

@@ -6,26 +6,19 @@ const imagePreview = document.getElementById("preview");
 const inputValueImg = document.getElementById("file-upload");
 const gestionDisplay = document.querySelector(".gestion-display");
 const arrowLeft = document.querySelector(".fa-arrow-left");
-// const publish = document.querySelector('.bulle')
-let formData;
-// let works = []
-let trashIndex;
 
 // Fonction delete pour supprimer un objet de l'API
-async function deleteObjects(trashIndex) {
+async function deleteObjects(trashIdFigure) {
   try {
-    console.log(trashIndex);
     const data = JSON.parse(localStorage.getItem("data"));
-    console.log(data);
     let token;
     if (data) {
       token = data.token;
     }
-    console.log(token);
     if (!token) {
       throw new Error("Aucun token trouvé dans le localStorage");
     }
-    const response = await fetch(`${baseUrl}works/${trashIndex}`, {
+    const response = await fetch(`${baseUrl}works/${trashIdFigure}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -34,30 +27,25 @@ async function deleteObjects(trashIndex) {
     if (!response.ok) {
       throw new Error(`la suppression de l'objet a échoué`);
     }
-    console.log(response);
   } catch (error) {
     console.error(`une erreur est survenue :`, error.message);
   }
-  console.log("effacementmodal");
   document.querySelector(".modal-gallery").innerHTML = "";
   const data2 = await communiquer();
-  console.log("creationgallery");
   recupImageTitle(data2, ".modal-gallery");
-  getIndexFromTrash();
+  getIdFigureTrash();
   suppressionHtmlGallery();
   recupImageTitle(data2, ".gallery");
 }
 
-// Fonction pour créer un array des icones trash et en récupérer l'index
-function getIndexFromTrash() {
-  console.log("installevent");
+// Fonction pour récupérer l'id de l'icone trash (correspondant à l'id de l'image récupérer dans la fonction recupImageTitle)
+function getIdFigureTrash() {
   const trashs = document.querySelectorAll(".fa-trash-can");
   for (let i = 0; i < trashs.length; i++) {
     trashs[i].addEventListener("click", function (event) {
       // Récupération de l'index
-      console.log("qsd");
-      const trashIndex = event.target.id;
-      deleteObjects(trashIndex);
+      const trashIdFigure = event.target.id;
+      deleteObjects(trashIdFigure);
     });
   }
 }
@@ -65,7 +53,6 @@ function getIndexFromTrash() {
 // Prévisualisation des images que l'on veut ajouter aux backend + test format + test poids
 function getPicture() {
   let file = inputValueImg.files[0];
-  console.log(file);
   if (file) {
     const regex = /\.(png|jpe?g)$/i;
     if (regex.test(file.name)) {
@@ -89,7 +76,7 @@ function getPicture() {
   }
 }
 
-// Retraitement de la chaine de caractère de file.name
+// Retraitement de la chaine de caractère de file.name pour suggerer le nom dans l'input titre
 function suggestTitle() {
   let str = inputValueImg.files[0].name;
   let leftPart = str.substring(0, str.indexOf("."));
@@ -102,7 +89,7 @@ function capitalizeFirstLetter(string) {
   return (finalString = string.charAt(0).toUpperCase() + string.slice(1));
 }
 
-// Vérification de l'alimentation des champs
+// Vérification de l'alimentation des champs avec mise en forme du bouton valider de la modale 2
 inputValueImg.addEventListener("input", checkform);
 titre.addEventListener("input", checkform);
 category.addEventListener("input", checkform);
@@ -131,13 +118,8 @@ function fieldRegularity() {
   }
 }
 
-async function loadImageAsBlob(url) {
-  const response = await fetch(url);
-  const blob = await response.blob();
-  return blob;
-}
 
-// stockage des objets dans l'array works, push dans works
+// push de l'objet formData dans l'API au click du bouton valider
 validPicture.addEventListener("click", function (e) {
   e.preventDefault();
   if (fieldRegularity() === true) {
@@ -159,21 +141,18 @@ validPicture.addEventListener("click", function (e) {
   }
 });
 
-//requete post de l'array works
+//requete post pour ajouter un travail
 async function sendNewWork(myObject) {
-  console.log(myObject);
   const formData = new FormData();
   formData.append("image", myObject.image);
   formData.append("title", myObject.title);
   formData.append("category", myObject.category);
   try {
     const data = JSON.parse(localStorage.getItem("data"));
-    console.log(data);
     let token;
     if (data) {
       token = data.token;
     }
-    console.log(token);
     if (!token) {
       throw new Error("Aucun token trouvé dans le localStorage");
     }
@@ -217,10 +196,11 @@ arrowLeft.addEventListener("click", function () {
   } else if (imagePreview.getAttribute("src") === "") {
     document.querySelector("#modal2").style.display = "none";
     document.querySelector(".modal-premier").style.display = "block";
-    getIndexFromTrash();
+    getIdFigureTrash();
   }
 });
 
+// Comportement de la modal (grafikart dans guide étape clé)
 function manageModal() {
   let modal = null;
   const focusableSelector = "button, a, input, textarea";
@@ -258,7 +238,7 @@ function manageModal() {
     document.querySelector(".modal-gallery").innerHTML = "";
     const data = await communiquer();
     recupImageTitle(data, ".modal-gallery");
-    getIndexFromTrash();
+    getIdFigureTrash();
   };
 
   const closeModal = function (e) {
