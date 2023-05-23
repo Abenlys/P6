@@ -241,7 +241,7 @@ header a:hover {
 }
 
 #seconnecter {
-	transition: transform 0.2 ease;
+	transition: transform 0.2s ease;
 	cursor: pointer;
 }
 
@@ -270,7 +270,7 @@ header a:hover {
 	padding-bottom: 2px;
 	padding-left: 10px;
 	padding-right: 10px;
-	transition: transform 0.2 ease;
+	transition: transform 0.2s ease;
 	cursor: pointer;
 }
 
@@ -427,7 +427,7 @@ header a:hover {
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	padding: 10px 15px;
 	cursor: pointer;
-	transition: transform 0.2 ease;
+	transition: transform 0.2s ease;
 }
 
 .add-picture:hover {
@@ -471,7 +471,7 @@ header a:hover {
 	color: white;
 	padding: 3px;
 	cursor: pointer;
-	transition: transform 0.2 ease;
+	transition: transform 0.2s ease;
 }
 
 .bg-icon:hover {
@@ -513,7 +513,7 @@ header a:hover {
 	cursor: pointer;
 	border: none;
 	background-color: white;
-	transition: transform 0.2 ease;
+	transition: transform 0.2s ease;
 }
 
 .js-backButton:hover {
@@ -533,7 +533,7 @@ header a:hover {
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	padding: 10px 15px;
 	cursor: pointer;
-	transition: transform 0.2 ease;
+	transition: transform 0.2s ease;
 }
 
 .container-add-pictures-button:hover {
@@ -585,7 +585,7 @@ header a:hover {
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	padding: 10px 15px;
 	cursor: pointer;
-	transition: transform 0.2 ease;
+	transition: transform 0.2s ease;
 	display: flex;
 	justify-content: center;
 	align-items: center;
